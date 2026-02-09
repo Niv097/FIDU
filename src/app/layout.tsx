@@ -15,6 +15,7 @@ export const metadata: Metadata = {
 
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
+import { MobileReloadRedirect } from "@/components/utils/MobileReloadRedirect";
 
 // ... (imports)
 
@@ -26,6 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className={`${jakarta.variable} font-sans antialiased bg-background text-foreground flex flex-col min-h-screen`}>
+        <MobileReloadRedirect />
         <Navbar />
         <main className="flex-grow pt-20">
           {children}
