@@ -147,7 +147,8 @@ body {
   border-radius: 15px;
 }
 
-.number-card:hover .face.face2 {
+.number-card:hover .face.face2,
+.number-card.active .face.face2 {
   height: 80px;
   border-radius: 0 0 15px 15px;
 }
@@ -160,7 +161,8 @@ body {
   transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.number-card:hover .face.face2 div {
+.number-card:hover .face.face2 div,
+.number-card.active .face.face2 div {
   /* Ensure the image remains visible and centered even when shrunk */
   opacity: 0.9;
 }
@@ -186,7 +188,8 @@ body {
   text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-.number-card:hover .face.face2 h2 {
+.number-card:hover .face.face2 h2,
+.number-card.active .face.face2 h2 {
   font-size: 2.5rem;
 }
 

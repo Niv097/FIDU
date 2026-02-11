@@ -10,6 +10,7 @@ import { Section } from "@/components/ui/section";
 import { ParticleBackground } from "@/components/ui/particle-background";
 import { SequentialTypewriter } from "@/components/ui/typewriter-text";
 import { useModal } from "@/lib/modal-context";
+import { FeatureCards } from "@/components/home/feature-cards";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -162,53 +163,8 @@ export default function Home() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {[
-            {
-              image: "/images/01.jpeg",
-              title: "Payments Engine",
-              href: "/solutions#marketplaces",
-              description: "Accept payments globally with our unified API. Support for cards, wallets, and bank transfers.",
-            },
-            {
-              image: "/images/02.jpeg",
-              title: "Secure Banking",
-              href: "/solutions#startups",
-              description: "Create accounts, issue cards, and manage ledgers with banking-as-a-service infrastructure.",
-            },
-            {
-              image: "/images/03.jpeg",
-              title: "Developer First",
-              href: "/solutions#saas",
-              description: "Built for developers, by developers. Robust SDKs, detailed documentation, and 24/7 support.",
-            },
-          ].map((feature, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="number-card group cursor-pointer"
-            >
-              <Link href={feature.href} className="block w-full h-full relative z-30">
-                <div className="face face1">
-                  <div className="content text-center">
-                    <h3 className="text-2xl font-bold mb-4 text-white">{feature.title}</h3>
-                    <p className="text-muted-foreground leading-relaxed">
-                      {feature.description}
-                    </p>
-                  </div>
-                </div>
-                <div className="face face2">
-                  <div
-                    className="w-full h-full bg-cover bg-center transition-all duration-500"
-                    style={{ backgroundImage: `url(${feature.image})` }}
-                  />
-                </div>
-              </Link>
-            </motion.div>
-          ))}
+        <div className="p-4">
+          <FeatureCards />
         </div>
       </Section >
 
