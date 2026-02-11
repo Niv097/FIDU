@@ -5,8 +5,10 @@ import { Check } from "lucide-react";
 import { Section } from "@/components/ui/section";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
+import { useModal } from "@/lib/modal-context";
 
 export default function PricingPage() {
+    const { openConnectModal } = useModal();
     return (
         <div className="min-h-screen">
             <Section className="pt-32 pb-20 text-center">
@@ -84,7 +86,13 @@ export default function PricingPage() {
                             </ul>
                         </CardContent>
                         <CardFooter>
-                            <Button variant="outline" className="w-full text-white border-white/20">Contact Sales</Button>
+                            <Button
+                                variant="outline"
+                                className="w-full text-white border-white/20"
+                                onClick={openConnectModal}
+                            >
+                                Let's Connect
+                            </Button>
                         </CardFooter>
                     </Card>
                 </div>

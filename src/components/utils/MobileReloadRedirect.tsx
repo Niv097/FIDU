@@ -8,22 +8,27 @@ export function MobileReloadRedirect() {
     const pathname = usePathname();
 
     useEffect(() => {
-        // Check if device is mobile (standard mobile breakpoint is 768px)
-        const isMobile = window.innerWidth < 768;
+        // Robust check for reload on mobile
+        const checkAndRedirect = () => {
+            if (typeof window === "undefined") return;
 
-        // Check if we are not on the home page
-        const isNotHome = pathname !== "/";
+            const isMobileView = window.innerWidth < 1024;
+            const isNotHome = window.location.pathname !== "/";
 
-        if (isMobile && isNotHome) {
-            // Check if the navigation was a reload
+            // Comprehensive reload check
             const navigationEntries = performance.getEntriesByType("navigation") as PerformanceNavigationTiming[];
-            const isReload = navigationEntries.length > 0 && navigationEntries[0].type === "reload";
+            const isReload =
+                (navigationEntries.length > 0 && navigationEntries[0].type === "reload") ||
+                (window.performance && window.performance.navigation && window.performance.navigation.type === 1);
 
-            if (isReload) {
-                router.replace("/");
+            if (isMobileView && isNotHome && isReload) {
+                // Hard redirect to home
+                window.location.replace("/");
             }
-        }
-    }, [pathname, router]);
+        };
+
+        checkAndRedirect();
+    }, [pathname]); // Use pathname to ensure logic re-runs on navigation
 
     return null;
 }

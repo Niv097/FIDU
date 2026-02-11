@@ -1,6 +1,10 @@
+"use client";
+
 import Link from "next/link";
+import { useModal } from "@/lib/modal-context";
 
 export function Footer() {
+    const { openConnectModal } = useModal();
     return (
         <footer className="bg-black/40 border-t border-white/10 py-16">
             <div className="container mx-auto px-4 md:px-6">
@@ -62,9 +66,9 @@ export function Footer() {
                         <h4 className="font-semibold text-white mb-4">Company</h4>
                         <ul className="space-y-3">
                             <li><Link href="/company" className="text-muted-foreground hover:text-primary transition-colors text-sm">About Us</Link></li>
-                            <li><Link href="/company#careers" className="text-muted-foreground hover:text-primary transition-colors text-sm">Careers</Link></li>
+                            <li><Link href="/careers" className="text-muted-foreground hover:text-primary transition-colors text-sm">Careers</Link></li>
                             <li><Link href="/company#blog" className="text-muted-foreground hover:text-primary transition-colors text-sm">Blog</Link></li>
-                            <li><Link href="/contact" className="text-muted-foreground hover:text-primary transition-colors text-sm">Contact</Link></li>
+                            <li><button onClick={openConnectModal} className="text-muted-foreground hover:text-primary transition-colors text-sm">Let's Connect</button></li>
                         </ul>
                     </div>
 

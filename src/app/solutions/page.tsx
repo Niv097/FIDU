@@ -27,25 +27,32 @@ export default function SolutionsPage() {
             <div className="space-y-0">
                 {[
                     {
+                        id: "marketplaces",
                         title: "For Marketplaces",
                         desc: "Split payments, onboard sellers, and manage complex payouts automatically. The complete financial backend for two-sided markets.",
                         icon: <ShoppingBag className="w-12 h-12 text-primary mb-6" />,
                         color: "from-blue-500/10"
                     },
                     {
+                        id: "startups",
                         title: "For Fintech Startups",
                         desc: "Launch your MVP in weeks, not years. Use our banking-as-a-service to issue cards and accounts without the regulatory headache.",
                         icon: <Users className="w-12 h-12 text-accent mb-6" />,
                         color: "from-teal-500/10"
                     },
                     {
+                        id: "saas",
                         title: "For SaaS Platforms",
                         desc: "Monetize your innovative software with embedded payments. Add a new revenue stream by becoming a financial partner to your users.",
                         icon: <Building2 className="w-12 h-12 text-purple-500 mb-6" />,
                         color: "from-purple-500/10"
                     }
                 ].map((sol, i) => (
-                    <Section key={i} className={`py-24 border-t border-white/5 bg-gradient-to-b ${sol.color} to-transparent`}>
+                    <Section
+                        id={sol.id}
+                        key={i}
+                        className={`py-24 border-t border-white/5 bg-gradient-to-b ${sol.color} to-transparent`}
+                    >
                         <div className={`grid grid-cols-1 lg:grid-cols-2 gap-16 items-center ${i % 2 === 1 ? 'lg:grid-flow-col-dense' : ''}`}>
                             <motion.div
                                 initial={{ opacity: 0, x: i % 2 === 0 ? -30 : 30 }}

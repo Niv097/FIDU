@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Section } from "@/components/ui/section";
 import { ParticleBackground } from "@/components/ui/particle-background";
 import { SequentialTypewriter } from "@/components/ui/typewriter-text";
+import { useModal } from "@/lib/modal-context";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -34,18 +35,20 @@ const itemVariants = {
 };
 
 export default function Home() {
+  const { openConnectModal } = useModal();
+
   return (
     <div className="flex flex-col min-h-screen">
       <ParticleBackground />
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 md:pb-32 overflow-hidden bg-transparent">
-        <div className="container px-4 md:px-6 mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <section className="relative pt-32 pb-24 md:pb-40 overflow-hidden bg-transparent min-h-[800px] flex items-center">
+        <div className="container px-4 md:px-6 mx-auto relative z-10">
+          <div className="w-full lg:w-1/2">
             <motion.div
               variants={containerVariants}
               initial="hidden"
               animate="visible"
-              className="flex flex-col gap-6 z-10 gpu-accelerated"
+              className="flex flex-col gap-6 gpu-accelerated"
             >
               <motion.div variants={itemVariants}>
                 <div className="inline-flex items-center rounded-full border border-primary/20 bg-primary/10 px-4 py-2 text-base md:text-sm font-medium text-primary mb-4">
@@ -87,8 +90,13 @@ export default function Home() {
                   Start Building
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
-                <Button variant="outline" size="lg" className="text-base h-12 px-8 border-white/20 hover:bg-white/5 text-white">
-                  Contact Sales
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="text-base h-12 px-8 border-white/20 hover:bg-white/5 text-white"
+                  onClick={openConnectModal}
+                >
+                  Let's Connect
                 </Button>
               </motion.div>
 
@@ -107,44 +115,33 @@ export default function Home() {
                 </div>
               </motion.div>
             </motion.div>
-
-
-
-            {/* Hero Animation - Desktop Only */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 2, delay: 0.5 }}
-              className="relative hidden lg:block"
-            >
-              <div className="relative w-full h-[600px] flex items-center justify-center">
-                {/* Aggressive Radial Mask to clear all edges */}
-                <div
-                  className="relative w-full h-full overflow-hidden"
-                  style={{
-                    maskImage: 'radial-gradient(circle at center, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 20%, rgba(0,0,0,0) 65%)',
-                    WebkitMaskImage: 'radial-gradient(circle at center, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 20%, rgba(0,0,0,0) 65%)'
-                  }}
-                >
-                  <video
-                    autoPlay
-                    muted
-                    playsInline
-                    preload="metadata"
-                    className="w-[105%] max-w-none h-full object-cover mix-blend-screen opacity-100 scale-[1.05] saturate-[1.1]"
-                    style={{ marginLeft: '-2.5%' }}
-                  >
-                    <source src="/hero-animation.mp4" type="video/mp4" />
-                    Your browser does not support the video tag.
-                  </video>
-                </div>
-              </div>
-
-              {/* Atmosphere / Glows */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] bg-primary/10 rounded-full blur-[140px] -z-10 pointer-events-none opacity-50" />
-            </motion.div>
           </div>
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.5, delay: 0.5 }}
+          className="absolute right-0 top-0 bottom-0 w-1/2 hidden lg:flex items-center justify-start -ml-20 overflow-hidden"
+        >
+          {/* Circular Spotlight Effect Wrapper */}
+          <div
+            className="relative w-full aspect-square max-w-[700px] flex items-center justify-center"
+            style={{
+              maskImage: 'radial-gradient(circle at center, black 35%, transparent 80%)',
+              WebkitMaskImage: 'radial-gradient(circle at center, black 35%, transparent 80%)'
+            }}
+          >
+            <img
+              src="/images/photo.png"
+              alt="Platform Interface"
+              className="w-full h-full object-cover mix-blend-screen scale-[1.2]"
+            />
+          </div>
+
+          {/* Subtle surrounding glow to match screenshot ambience */}
+          <div className="absolute inset-0 bg-primary/5 rounded-full blur-[120px] scale-50 opacity-30 pointer-events-none" />
+        </motion.div>
       </section >
 
       {/* Platform Overview */}
@@ -168,18 +165,21 @@ export default function Home() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {[
             {
-              number: "01",
+              image: "/images/01.jpeg",
               title: "Payments Engine",
+              href: "/solutions#marketplaces",
               description: "Accept payments globally with our unified API. Support for cards, wallets, and bank transfers.",
             },
             {
-              number: "02",
+              image: "/images/02.jpeg",
               title: "Secure Banking",
+              href: "/solutions#startups",
               description: "Create accounts, issue cards, and manage ledgers with banking-as-a-service infrastructure.",
             },
             {
-              number: "03",
+              image: "/images/03.jpeg",
               title: "Developer First",
+              href: "/solutions#saas",
               description: "Built for developers, by developers. Robust SDKs, detailed documentation, and 24/7 support.",
             },
           ].map((feature, i) => (
@@ -189,19 +189,24 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="number-card"
+              className="number-card group cursor-pointer"
             >
-              <div className="face face1">
-                <div className="content text-center">
-                  <h3 className="text-2xl font-bold mb-4 text-white">{feature.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    {feature.description}
-                  </p>
+              <Link href={feature.href} className="block w-full h-full relative z-30">
+                <div className="face face1">
+                  <div className="content text-center">
+                    <h3 className="text-2xl font-bold mb-4 text-white">{feature.title}</h3>
+                    <p className="text-muted-foreground leading-relaxed">
+                      {feature.description}
+                    </p>
+                  </div>
                 </div>
-              </div>
-              <div className="face face2">
-                <h2>{feature.number}</h2>
-              </div>
+                <div className="face face2">
+                  <div
+                    className="w-full h-full bg-cover bg-center transition-all duration-500"
+                    style={{ backgroundImage: `url(${feature.image})` }}
+                  />
+                </div>
+              </Link>
             </motion.div>
           ))}
         </div>
@@ -315,8 +320,13 @@ export default function Home() {
               <Button size="lg" className="h-14 px-8 text-lg font-bold bg-primary text-black hover:bg-primary/90 shadow-[0_0_30px_rgba(0,229,255,0.4)] hover:shadow-[0_0_50px_rgba(0,229,255,0.6)] transition-shadow">
                 Get API Keys
               </Button>
-              <Button variant="outline" size="lg" className="h-14 px-8 text-lg border-white/10 text-white hover:bg-white/5 backdrop-blur-sm">
-                Contact Sales
+              <Button
+                variant="outline"
+                size="lg"
+                className="h-14 px-8 text-lg border-white/10 text-white hover:bg-white/5 backdrop-blur-sm"
+                onClick={openConnectModal}
+              >
+                Let's Connect
               </Button>
             </div>
           </motion.div>

@@ -61,7 +61,7 @@ body {
 .nav-boxed-effect {
   position: relative;
   display: inline-block;
-  padding: 8px 16px;
+  padding: 8px 18px;
   transition: .5s;
   z-index: 1;
 }
@@ -143,24 +143,26 @@ body {
   background: #111;
   transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 20;
-}
-
-/* Unified Brand Gradients (Cyan/Teal variations) */
-.number-card:nth-child(1) .face.face2 {
-  background: linear-gradient(45deg, #00E5FF, #2dd4bf);
-}
-
-.number-card:nth-child(2) .face.face2 {
-  background: linear-gradient(45deg, #00BCD4, #00796B);
-}
-
-.number-card:nth-child(3) .face.face2 {
-  background: linear-gradient(45deg, #00838F, #004D40);
+  overflow: hidden;
+  border-radius: 15px;
 }
 
 .number-card:hover .face.face2 {
   height: 80px;
   border-radius: 0 0 15px 15px;
+}
+
+.number-card .face.face2 div {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.number-card:hover .face.face2 div {
+  /* Ensure the image remains visible and centered even when shrunk */
+  opacity: 0.9;
 }
 
 .number-card .face.face2::before {

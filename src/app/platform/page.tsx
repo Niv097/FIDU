@@ -5,8 +5,10 @@ import { BadgeCheck, Banknote, Globe, Lock, ShieldCheck, Wallet } from "lucide-r
 import { Section } from "@/components/ui/section";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { useModal } from "@/lib/modal-context";
 
 export default function PlatformPage() {
+    const { openConnectModal } = useModal();
     return (
         <div className="min-h-screen">
             {/* Header */}
@@ -136,7 +138,13 @@ export default function PlatformPage() {
 
             <Section className="text-center py-24">
                 <h2 className="text-3xl font-bold text-white mb-8">Start building with the Platform</h2>
-                <Button size="lg" className="bg-white text-black hover:bg-gray-200">Contact Sales</Button>
+                <Button
+                    size="lg"
+                    className="bg-white text-black hover:bg-gray-200"
+                    onClick={openConnectModal}
+                >
+                    Let's Connect
+                </Button>
             </Section>
         </div>
     );
